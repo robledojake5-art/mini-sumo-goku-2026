@@ -1,1 +1,96 @@
+//motores L293D
+
+#define IN1
+#define IN2
+#define IN3
+#define IN4
+
+#define TRIG
+#define ECHO
+
+//ADELANTE
+
+
+
+// ADELANTE
+void Adelante()
+{
+  digitalWrite(IN1,HIGH);
+  digitalWrite(IN2,LOW);
+  digitalWrite(IN3,HIGH);
+  digitalWrite(IN4,LOW);
+}
+
+// IZQUIERDA
+void Derecha()
+{
+  digitalWrite(IN1,HIGH);
+  digitalWrite(IN2,LOW);
+  digitalWrite(IN3,LOW);
+  digitalWrite(IN4,HIGH);
+}
+
+void izquierda()
+{
+  digitalWrite(IN1,LOW);
+  digitalWrite(IN2,HGH);
+  digitalWrite(IN3,HIGH);
+  digitalWrite(IN4,LOW);
+}
+
+void Atras()
+{
+  digitalWrite(IN1,LOW);
+  digitalWrite(IN2,HIGH);
+  digitalWrite(IN3,LOW);
+  digitalWrite(IN4,HIGH);
+}
+
+//SENSORES
+
+int medirdistancia(){
+  digitalwrite(TRIG,LOW);
+  delaymicroseconds(2);
+  digitalwrite(TRIG,HIGH);
+  delaymicroseconds(10);
+  digitalwrite(TRIG,LOW);
+
+  DURACION=pulseIn(ECHO,HING,20000);
+
+  DISTANCIA=DURACION 0.034/2;
+
+  return DISTANCIA;
+}
+
+void setup(){
+  Serial.begin(9600);
+  pinmode(IN1,OUTPUT);
+  pinmode(IN2,OUTPUT);
+  pinmode(IN3,OUTPUT);
+  pinmode(IN4,OUTPUT);
+
+  delay(5000);
+}
+
+void loop(){
+  // LECTURA
+  int distancia = medirdistancia();
+  int piso = digitalRead(OUT);
+
+  
+  if(piso == HIGH){
+    Atras();
+    delay(500);
+    Derecha();
+    delay(500);
+  }
+
+  if(distancia > 0 && distancia < 40){
+    Avanzar();
+  }
+  else {
+    Derecha();
+  }
+
+}
 
